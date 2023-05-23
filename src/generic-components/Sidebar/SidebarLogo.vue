@@ -1,7 +1,7 @@
 <template>
   <div class="logo">
     <router-link to="/" class="simple-text logo-normal">
-      Search repository
+     WINDBNB
     </router-link>
   </div>
 </template>

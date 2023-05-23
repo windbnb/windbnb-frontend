@@ -22,6 +22,14 @@ const routes = [
     meta: {
       layout: "AuthLayout",
     },
+  },
+  {
+    path: "/registration",
+    name: "Registration",
+    component: () => import("@/pages/RegistrationPage.vue"),
+    meta: {
+      layout: "AuthLayout",
+    },
   }
 ];
 
