@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {setToken} from '../../utils/token'
+import {setToken, removeToken} from '../../utils/token'
 
 const state = {
     result: null
@@ -11,9 +11,9 @@ const getters = {
 
 const actions = {
     authenticate: (context, credentials) => {
-        axios.post('/auth/login', credentials)
+        axios.post('/users/login', credentials)
         .then(response => {
-            setToken(response.data.accessToken);
+            setToken(response.data.token);
             
             context.commit('setResult', {
                 label: 'authenticate',
@@ -30,6 +30,11 @@ const actions = {
                 message: message
             });
         });        
+    },
+
+    logOut: () => {
+        const token = sessionStorage.getItem('token');
+            removeToken(token);
     }
 };
 

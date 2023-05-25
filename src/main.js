@@ -5,17 +5,17 @@ import axios from 'axios'
 import store from './store'
 import router from './router'
 import AppLayout from '@/layouts/AppLayout'
-// import {
-//   setAuthorizationHeaderInterceptor,
-//   setUnauthorizedHeaderInterceptor,
-// } from "./utils/token";
+import {
+  setAuthorizationHeaderInterceptor,
+  setUnauthorizedHeaderInterceptor,
+} from "./utils/token";
 
 Vue.component("AppLayout", AppLayout);
 
-// axios.defaults.baseURL = "http://localhost:8080/api/v1";
-// axios.defaults.withCredentials = true;
-// setAuthorizationHeaderInterceptor();
-// setUnauthorizedHeaderInterceptor();
+axios.defaults.baseURL = "http://localhost:8081/api";
+axios.defaults.withCredentials = true;
+setAuthorizationHeaderInterceptor();
+setUnauthorizedHeaderInterceptor();
 
 Vue.config.productionTip = false
 
