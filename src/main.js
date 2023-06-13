@@ -12,7 +12,7 @@ import {
 
 Vue.component("AppLayout", AppLayout);
 
-axios.defaults.baseURL = "http://localhost:8081/api";
+axios.defaults.baseURL = "http://localhost:8000/api";
 axios.defaults.withCredentials = true;
 setAuthorizationHeaderInterceptor();
 setUnauthorizedHeaderInterceptor();

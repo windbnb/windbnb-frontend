@@ -30,6 +30,30 @@ const routes = [
     meta: {
       layout: "AuthLayout",
     },
+  },
+  {
+    path: "/create-accomodation",
+    name: "AddAccomodation",
+    component: () => import("@/pages/AddAccomodationPage.vue"),
+    meta: {
+      layout: "AppLayoutMain",
+    },
+  },
+  {
+    path: "/accomodation-availability/:id",
+    name: "AddAvailability",
+    component: () => import("@/pages/AddAvailabilityPage.vue"),
+    meta: {
+      layout: "AppLayoutMain",
+    },
+  },
+  {
+    path: "/accomodation-price/:id",
+    name: "AddPrice",
+    component: () => import("@/pages/AddPricePage.vue"),
+    meta: {
+      layout: "AppLayoutMain",
+    },
   }
 ];
 
