@@ -18,6 +18,7 @@
             <dropdown-menu name="Account" icon="person">
               <div>
                 <dropdown-item to='/profile'>Profile</dropdown-item>
+                 <dropdown-item to='/change'>Change password</dropdown-item>
                 <dropdown-item  @click="logOut">Log out</dropdown-item>
               </div>
             </dropdown-menu>

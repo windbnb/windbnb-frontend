@@ -33,10 +33,12 @@
 
     <form-row>
       <div class="col-6">
-        <text-input label="Password" v-model="newUser.password" type="password"/>
+        <text-input label="Password" v-model="newUser.password" type="password" :isValid="validatePassword(newUser.password)" :showErrorMessage="showErrorMessage" errorMessage="Password can contain letters, numbers, 
+        special characters and should be at least 8 characters long."/>
       </div>
       <div class="col-6">
-        <text-input label="Repeat password" v-model="password2" type="password"/>
+        <text-input label="Repeat password" v-model="password2" type="password" :isValid="validatePassword(password2)" :showErrorMessage="showErrorMessage" errorMessage="Password can contain letters, numbers, 
+        special characters and should be at least 8 characters long."/>
       </div>
     </form-row>
 
