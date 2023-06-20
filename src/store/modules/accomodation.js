@@ -2,12 +2,16 @@ import axios from 'axios'
 
 const state = {
     result: null,
-    accomodation: null
+    accomodation: null,
+    accomodations: null,
+    image: null
 };
   
 const getters = {
     getResult: (state) => state.result,
-    getAccomodation: (state) => state.accomodation
+    getAccomodation: (state) => state.accomodation,
+    getAccomodations: (state) => state.accomodations,
+    getImage: (state) => state.image
 };
   
 const actions = {
@@ -47,7 +51,33 @@ const actions = {
             const message = error.response.data.message !== undefined ? error.response.data.message : error.response.data.errorMessage;
             context.commit("setResult", { label: "create", ok: false, message: message });
           });
-      },
+    },
+
+    searchAccomodations: (context, searchAccomodationsDto) => {
+        axios
+        .post(`/accomodation/search/available`, searchAccomodationsDto)
+        .then((response) => {
+        context.commit("setAccomodations", response.data);
+          context.commit("setResult", { label: "search", ok: true, message: "" });
+        })
+        .catch((error) => {
+          const message = error.response.data.message !== undefined ? error.response.data.message : error.response.data.errorMessage;
+          context.commit("setResult", { label: "search", ok: false, message: message });
+        });
+    },
+
+    fetchImage: (context, imageName) => {
+        axios
+        .get(`/accomodation/image/` + imageName)
+        .then((response) => {
+          context.commit("setImage", response.data);
+          context.commit("setResult", { label: "image", ok: true, message: "" });
+        })
+        .catch((error) => {
+          const message = error.response.data.message !== undefined ? error.response.data.message : error.response.data.errorMessage;
+          context.commit("setResult", { label: "image", ok: false, message: message });
+        });
+    }
     
 };
   
@@ -58,6 +88,14 @@ const mutations = {
 
     setAccomodation: (state, accomodation) => {
       state.accomodation = accomodation;
+    },
+
+    setAccomodations: (state, accomodations) => {
+        state.accomodations = accomodations;
+    },
+
+    setImage: (state, image) => {
+        state.image = image;
     }
 };
   

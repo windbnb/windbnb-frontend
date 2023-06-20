@@ -54,6 +54,32 @@ const routes = [
     meta: {
       layout: "AppLayoutMain",
     },
+  },
+  {
+    path: "/search",
+    name: "AccomodationsPage",
+    component: () => import("@/pages/AccomodationsPage.vue"),
+    meta: {
+      layout: "AppLayoutMain",
+    },
+  },
+  {
+    path: "/accomodation/:id",
+    name: "AccomodationPage",
+    props: true,
+    component: () => import("@/pages/AccomodationPage.vue"),
+    meta: {
+      layout: "AppLayoutMain",
+    },
+  },
+  {
+    path: "/accomodations",
+    name: "HostAccomodationsPage",
+    props: true,
+    component: () => import("@/pages/HostAccomodationsPage.vue"),
+    meta: {
+      layout: "AppLayoutMain",
+    },
   }
 ];
 

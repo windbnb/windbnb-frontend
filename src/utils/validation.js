@@ -9,7 +9,7 @@ export function validateEmail(email) {
   }
   
   export function validateStringWithLettersOnly(stringToValidate) {
-    const re = /^[a-zA-Z]+$/;
+    const re = /^[a-zA-Z_ ]+$/;
     return re.test(String(stringToValidate));
   }
   
