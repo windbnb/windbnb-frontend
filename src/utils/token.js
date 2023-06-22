@@ -20,13 +20,14 @@ export function setAuthorizationHeaderInterceptor() {
 	});
 }
 
-export function setUnauthorizedHeaderInterceptor() {
+export function setUnauthorizedHeaderInterceptor(store) {
 	// Set Unauthorized handler
 	axios.interceptors.response.use(function (response) {
 		return response;
 	}, function (error) {
-		if ((401 === error.response.status || 403 == error.response.status) && sessionStorage.getItem('token')) {
-			router.push('/auth')
+		if ((401 === error.response.statusCode || 403 == error.response.statusCode) && sessionStorage.getItem('token')) {
+			store.dispatch('authentication/logOut');
+			router.push('/login')
 		}
 		else {
 			return Promise.reject(error);

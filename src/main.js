@@ -15,7 +15,7 @@ Vue.component("AppLayout", AppLayout);
 axios.defaults.baseURL = "http://localhost:8000/api";
 axios.defaults.withCredentials = true;
 setAuthorizationHeaderInterceptor();
-setUnauthorizedHeaderInterceptor();
+setUnauthorizedHeaderInterceptor(store);
 
 Vue.config.productionTip = false
 
