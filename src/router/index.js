@@ -70,6 +70,30 @@ const routes = [
     meta: {
       layout: "AppLayoutMain",
     },
+  },
+  {
+    path: "/reservations/host-active",
+    name: "HostActiveReservations",
+    component: () => import("@/pages/HostActiveReservationsPage.vue"),
+    meta: {
+      layout: "AppLayoutMain",
+    },
+  },
+  {
+    path: "/reservations/guest",
+    name: "GuestAllReservations",
+    component: () => import("@/pages/GuestAllReservationsPage.vue"),
+    meta: {
+      layout: "AppLayoutMain",
+    },
+  },
+  {
+    path: "/reservations/host-submitted",
+    name: "HostSubmittedReservations",
+    component: () => import("@/pages/HostSubmittedReservationsPage.vue"),
+    meta: {
+      layout: "AppLayoutMain",
+    },
   }
 ];
 
