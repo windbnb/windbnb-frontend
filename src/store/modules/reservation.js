@@ -12,13 +12,13 @@ const getters = {
   
 const actions = {
     getOwnerActive: (context, ownerId) => {
-        axios.get(`/reservationRequest/owner/` + ownerId)
-        .then(response => {
-          context.commit("setReservations", response.data);
-        })
-        .catch(error => {
-          context.commit("setResult", {label: "fetchReservations", ok: false, message: error.response.data.errorMessage })
-        })
+      axios.get(`/reservationRequest/owner/` + ownerId)
+      .then(response => {
+        context.commit("setReservations", response.data);
+      })
+      .catch(error => {
+        context.commit("setResult", {label: "fetchReservations", ok: false, message: error.response.data.errorMessage })
+      })
     },
     getGuestAll: (context, guestId) => {
         axios.get(`/reservationRequest/guest/` + guestId + "/all")
@@ -29,8 +29,8 @@ const actions = {
           context.commit("setResult", {label: "fetchReservations", ok: false, message: error.response.data.errorMessage })
         })
     },
-    getOwnerSubmitted: (context, ownerId) => {
-        axios.get(`/reservationRequest/owner/` + ownerId + "/submitted")
+    getOwnersReservations: (context, {ownerId, status}) => {
+        axios.get(`/reservationRequest/owners/` + ownerId + "?status=" + status)
         .then(response => {
           context.commit("setReservations", response.data);
         })

@@ -2,7 +2,7 @@
   <div class="content">
     <div class="container-fluid">
       <div class="center align-items-center col-10" style="margin-left: 10%">
-        <card :title="'Submitted reservations'">
+        <card :title="'All reservations'">
             <ReservationTable :reservations="reservations"/>
         </card>
       </div>
@@ -34,7 +34,7 @@ export default {
     },
     methods: {
         ...mapActions({
-            getOwnerSubmited: 'reservation/getOwnersReservations'
+            getOwnersReservations: 'reservation/getOwnersReservations'
         }),
     },
     watch: {
@@ -43,10 +43,11 @@ export default {
        }
     },
     mounted() {
-        this.getOwnerSubmited({
-          ownerId: getIdFromToken(), 
-          status: "SUBMITTED"});
+        this.getOwnersReservations({
+            ownerId: getIdFromToken(), 
+            status: ""
+        });
     },
-    name: "HostActiveReservationsPage",
+    name: "HostAllReservationsPage",
 };
 </script>

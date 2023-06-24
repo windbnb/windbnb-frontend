@@ -94,6 +94,14 @@ const routes = [
     meta: {
       layout: "AppLayoutMain",
     },
+  },
+  {
+    path: "/reservations/host-all",
+    name: "HostAllReservations",
+    component: () => import("@/pages/HostAllReservationsPage.vue"),
+    meta: {
+      layout: "AppLayoutMain",
+    },
   }
 ];
 

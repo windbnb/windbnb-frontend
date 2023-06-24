@@ -7,6 +7,7 @@
         <sidebar-item v-if="role.includes('HOST')" name="Add accomodation" icon="home" to="/create-accomodation"></sidebar-item>
         <sidebar-item v-if="role.includes('HOST')" name="Active reservations" icon="home" to="/reservations/host-active"></sidebar-item>
         <sidebar-item v-if="role.includes('HOST')" name="Submitted reservations" icon="home" to="/reservations/host-submitted"></sidebar-item>
+        <sidebar-item v-if="role.includes('HOST')" name="All reservations" icon="home" to="/reservations/host-all"></sidebar-item>
 
         <sidebar-item v-if="role.includes('GUEST')" name="Reservations" icon="home" to="/reservations/guest"></sidebar-item>
       </ul>
