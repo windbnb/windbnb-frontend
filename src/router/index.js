@@ -80,6 +80,24 @@ const routes = [
     meta: {
       layout: "AppLayoutMain",
     },
+  },
+  {
+    path: "/available-terms/:id",
+    name: "AvailableTermsPage",
+    props: true,
+    component: () => import("@/pages/AvailableTermsPage.vue"),
+    meta: {
+      layout: "AppLayoutMain",
+    },
+  },
+  {
+    path: "/prices/:id",
+    name: "PricesPage",
+    props: true,
+    component: () => import("@/pages/PricesPage.vue"),
+    meta: {
+      layout: "AppLayoutMain",
+    },
   }
 ];
 

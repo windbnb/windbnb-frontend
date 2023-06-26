@@ -2,17 +2,16 @@
  <div>
         <div class="card card-chart" v-if="this.image !== null">
             <div class="card-header card-header-rose">
-                <img :src="this.image" id="image" @load="load"/>
+                <img :src="this.image" id="image" @load="load()"/>
             </div>
             <div class="card-body">
-                <h4 class="card-title">{{fetchedAccomodation.accomodation.name}}</h4>
-                <p class="card-title">{{fetchedAccomodation.accomodation.address}}</p>
+                <h4 class="card-title">{{fetchedAccomodation.name}}</h4>
+                <p class="card-title">{{fetchedAccomodation.address}}</p>
                  <p class="card-category">{{"RATING"}}</p>
             </div>
             <div class="card-footer">
-                <div class="stats">
-                </div>
-                <Button class="pull-right" @click="viewMore">View more</Button>
+                <Button  @click="viewAvailableTerms">Available terms</Button>
+                <Button  @click="viewPrices">Prices</Button>
             </div>
         </div>
     </div>
@@ -58,13 +57,17 @@ methods: {
         console.log(this.image)
     },
 
-    viewMore(){
-        this.$router.push({name:'AccomodationPage', path: '/accomodation/'+ this.fetchedAccomodation.accomodation.id, params: { accomodation: this.fetchedAccomodation }});
+    viewAvailableTerms(){
+       this.$router.push('/available-terms/'+ this.fetchedAccomodation.id);
+    },
+
+    viewPrices(){
+         this.$router.push('/prices/'+ this.fetchedAccomodation.id);
     }
 },
 
 mounted() {
-    this.fetchImage(this.fetchedAccomodation.accomodation.images[0])
+    this.fetchImage(this.fetchedAccomodation.images[0])
 },
 
 }
