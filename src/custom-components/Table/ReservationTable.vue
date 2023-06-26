@@ -71,6 +71,7 @@ export default {
 
   computed: {
         ...mapGetters({
+          result: 'reservation/getResult'
         })
     },
   methods: {

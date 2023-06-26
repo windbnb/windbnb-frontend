@@ -65,6 +65,15 @@ const actions = {
         context.commit("setResult", {label: "acceptReservationRequest", ok: false, message: error.response.data.errorMessage })
       })
     },
+    getGuestActive: (context, guestId) => {
+      axios.get(`/reservationRequest/guest/` + guestId)
+      .then(response => {
+        context.commit("setReservations", response.data);
+      })
+      .catch(error => {
+        context.commit("setResult", {label: "fetchReservations", ok: false, message: error.response.data.errorMessage })
+      })
+    }
 };
   
 const mutations = {

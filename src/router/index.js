@@ -102,6 +102,14 @@ const routes = [
     meta: {
       layout: "AppLayoutMain",
     },
+  },
+  {
+    path: "/reservations/guest-active",
+    name: "GuestActiveReservations",
+    component: () => import("@/pages/GuestActiveReservationsPage.vue"),
+    meta: {
+      layout: "AppLayoutMain",
+    },
   }
 ];
 
