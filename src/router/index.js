@@ -59,6 +59,22 @@ const routes = [
     path: "/search",
     name: "AccomodationsPage",
     component: () => import("@/pages/AccomodationsPage.vue"),
+     meta: {
+      layout: "AppLayoutMain",
+    },
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: () => import("@/pages/ProfilePage.vue"),
+    meta: {
+      layout: "AppLayoutMain",
+    },
+  },
+  {
+    path: "/change",
+    name: "ChangePassword",
+    component: () => import("@/pages/ChangePasswordPage.vue"),
     meta: {
       layout: "AppLayoutMain",
     },
