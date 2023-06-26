@@ -4,7 +4,14 @@
     <div class="sidebar-wrapper">
       <ul class="nav">
         <sidebar-item name="Home" icon="description" to="/"></sidebar-item>
-        <sidebar-item v-if="role.includes('HOST')" name="Add accomodation" icon="home" to="/create-accomodation"></sidebar-item>
+        <sidebar-item v-if="role.includes('HOST')" name="Add accomodation" icon="add" to="/create-accomodation"></sidebar-item>
+        <sidebar-item v-if="role.includes('HOST')" name="Active reservations" icon="list" to="/reservations/host-active"></sidebar-item>
+        <sidebar-item v-if="role.includes('HOST')" name="Submitted reservations" icon="list" to="/reservations/host-submitted"></sidebar-item>
+        <sidebar-item v-if="role.includes('HOST')" name="All reservations" icon="list" to="/reservations/host-all"></sidebar-item>
+
+        <sidebar-item v-if="role.includes('GUEST')" name="Reservations" icon="list" to="/reservations/guest"></sidebar-item>
+        <sidebar-item v-if="role.includes('GUEST')" name="Active reservations" icon="list" to="/reservations/guest-active"></sidebar-item>
+        
         <sidebar-item v-if="role.includes('HOST')" name="My accomodations" icon="lists" to="/accomodations"></sidebar-item>
       </ul>
     </div>

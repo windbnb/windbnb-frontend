@@ -80,10 +80,26 @@ const routes = [
     },
   },
   {
+    path: "/reservations/host-active",
+    name: "HostActiveReservations",
+    component: () => import("@/pages/HostActiveReservationsPage.vue"),
+    meta: {
+          layout: "AppLayoutMain",
+        },
+  },
+  {
     path: "/accomodation/:id",
     name: "AccomodationPage",
     props: true,
     component: () => import("@/pages/AccomodationPage.vue"),
+    meta: {
+      layout: "AppLayoutMain",
+    },
+  },
+  {
+    path: "/reservations/guest",
+    name: "GuestAllReservations",
+    component: () => import("@/pages/GuestAllReservationsPage.vue"),
     meta: {
       layout: "AppLayoutMain",
     },
@@ -98,10 +114,34 @@ const routes = [
     },
   },
   {
+    path: "/reservations/host-submitted",
+    name: "HostSubmittedReservations",
+    component: () => import("@/pages/HostSubmittedReservationsPage.vue"),
+    meta: {
+          layout: "AppLayoutMain",
+        },
+  },
+  {
     path: "/available-terms/:id",
     name: "AvailableTermsPage",
     props: true,
     component: () => import("@/pages/AvailableTermsPage.vue"),
+    meta: {
+      layout: "AppLayoutMain",
+    },
+  },
+  {
+    path: "/reservations/host-all",
+    name: "HostAllReservations",
+    component: () => import("@/pages/HostAllReservationsPage.vue"),
+    meta: {
+      layout: "AppLayoutMain",
+    },
+  },
+  {
+    path: "/reservations/guest-active",
+    name: "GuestActiveReservations",
+    component: () => import("@/pages/GuestActiveReservationsPage.vue"),
     meta: {
       layout: "AppLayoutMain",
     },
