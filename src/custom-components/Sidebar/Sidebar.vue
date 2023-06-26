@@ -5,6 +5,7 @@
       <ul class="nav">
         <sidebar-item name="Home" icon="description" to="/"></sidebar-item>
         <sidebar-item v-if="role.includes('HOST')" name="Add accomodation" icon="home" to="/create-accomodation"></sidebar-item>
+        <sidebar-item v-if="role.includes('HOST')" name="My accomodations" icon="lists" to="/accomodations"></sidebar-item>
       </ul>
     </div>
   </div>
