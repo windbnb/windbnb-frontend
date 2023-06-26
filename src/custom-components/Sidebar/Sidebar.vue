@@ -11,6 +11,8 @@
 
         <sidebar-item v-if="role.includes('GUEST')" name="Reservations" icon="list" to="/reservations/guest"></sidebar-item>
         <sidebar-item v-if="role.includes('GUEST')" name="Active reservations" icon="list" to="/reservations/guest-active"></sidebar-item>
+        
+        <sidebar-item v-if="role.includes('HOST')" name="My accomodations" icon="lists" to="/accomodations"></sidebar-item>
       </ul>
     </div>
   </div>
