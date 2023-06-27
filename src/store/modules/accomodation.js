@@ -74,7 +74,7 @@ const actions = {
         axios
         .get(`/accomodation/image/` + imageName)
         .then((response) => {
-          context.commit("setImage",  new Blob([response.data]), {type: "image/jpg"});
+          context.commit("setImage", response.data);
           context.commit("setResult", { label: "image", ok: true, message: "" });
         })
         .catch((error) => {
@@ -144,6 +144,19 @@ const actions = {
         const message = error.response.data.message !== undefined ? error.response.data.message : error.response.data.errorMessage;
         context.commit("setResult", { label: "delete", ok: false, message: message });
       });
+  },
+
+  fetchAccomodation: (context, accomodationId) => {
+    axios
+    .get(`/accomodation/` + accomodationId)
+    .then((response) => {
+      context.commit("setAccomodation", response.data);
+      context.commit("setResult", { label: "fetch", ok: true, message: "" });
+    })
+    .catch((error) => {
+      const message = error.response.data.message !== undefined ? error.response.data.message : error.response.data.errorMessage;
+      context.commit("setResult", { label: "fetch", ok: false, message: message });
+    });
   },
 
     

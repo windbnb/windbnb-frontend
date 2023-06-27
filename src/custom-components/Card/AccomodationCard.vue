@@ -1,13 +1,14 @@
 <template>
  <div>
-        <div class="card card-chart" v-if="this.image !== null">
-            <div class="card-header card-header-rose">
-                <img :src="this.image" id="image" @load="load"/>
+        <div class="card card-chart" v-if="fetchedAccomodationData.displayImage !== null  && fetchedAccomodationData.average !== 0">
+            <div class="card-header card-header">
+                <img :src="fetchedAccomodationData.displayImage" id="image" @load="load" style="height: 200px;max-width: 100%;"/>
             </div>
             <div class="card-body">
-                <h4 class="card-title">{{fetchedAccomodation.accomodation.name}}</h4>
-                <p class="card-title">{{fetchedAccomodation.accomodation.address}}</p>
-                 <p class="card-category">{{"RATING"}}</p>
+                <!-- <h4 class="card-title">{{fetchedAccomodationData}}</h4> -->
+                <p class="card-title">{{fetchedAccomodationData.accomodation.address}}</p>
+               <p class="card-title">{{fetchedAccomodationData.average}}</p>
+                <StarRating v-model="fetchedAccomodationData.average" :read-only=true></StarRating>
             </div>
             <div class="card-footer">
                 <div class="stats">
@@ -20,10 +21,12 @@
 
 <script>
 import Button from "../../generic-components/Form/Button.vue"
+import StarRating from 'vue-star-rating'
 import { mapGetters, mapActions } from 'vuex'
 export default {
     components: {
         Button,
+        StarRating
     },
 
     props:{
@@ -32,39 +35,54 @@ export default {
 
 data: function () {
     return {
-      image: null
+      image: null,
+      fetchedAccomodationData: {
+        accomodation: {
+            address: ""
+        }
+      }
     };
 },
 computed: {
     ...mapGetters({
       fetchedImage: "accomodation/getImage",
+      averageAccomodation: "review/getAverageAccomodation"
         }),
     },
 
 watch: {
      fetchedImage(newImage) {
-        this.image = window.URL.createObjectURL(newImage);
+        this.fetchedAccomodationData.displayImage = newImage;
     },
+
+    averageAccomodation(newAverageAccomodation){
+        this.fetchedAccomodationData.average = newAverageAccomodation.AverageRaiting;
+        this.$set(this, "fetchedAccomodationData", newAverageAccomodation)
+        this.$set(this.fetchedAccomodationData, "average", newAverageAccomodation.AverageRaiting)
+    }
+
 },
 
 methods: {
         ...mapActions({
-        fetchImage: "accomodation/fetchImage"
+        fetchImage: "accomodation/fetchImage",
+        fetchAverageAccomodation: "review/fetchAverageAccomodation"
     }),
 
     load(){
-        URL.revokeObjectURL(this.image);
-        document.getElementById('image').src = this.image;
-        console.log(this.image)
+        URL.revokeObjectURL(this.fetchedAccomodation.displayImage);
+        document.getElementById('image').src = this.fetchedAccomodation.displayImage;
     },
 
     viewMore(){
-        this.$router.push({name:'AccomodationPage', path: '/accomodation/'+ this.fetchedAccomodation.accomodation.id, params: { accomodation: this.fetchedAccomodation }});
+        this.$router.push({name:'AccomodationPage', path: '/accomodation/'+ this.fetchedAccomodationData.accomodation.id, params: { accomodation: this.fetchedAccomodation }});
     }
 },
 
 mounted() {
-    this.fetchImage(this.fetchedAccomodation.accomodation.images[0])
+    this.fetchedAccomodationData = this.fetchedAccomodation;
+    this.fetchImage(this.fetchedAccomodationData.accomodation.images[0])
+    this.fetchAverageAccomodation(this.fetchedAccomodationData.accomodation.id)
 },
 
 }

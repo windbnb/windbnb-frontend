@@ -10,6 +10,7 @@
                         <p class="card-title">{{checkPriceType()}}</p>
                         <p class="card-title">Price: {{this.accomodation.price}} RSD</p>
                         <p class="card-title">{{facilities()}}</p>
+                        <StarRating  v-model="this.accomodation.average" :read-only=true  :star-size="15"></StarRating>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
@@ -30,13 +31,15 @@ import Button from "../generic-components/Form/Button.vue"
 import Form from "../generic-components/Form/Form.vue"
 import FormRow from "../generic-components/Form/FormRow.vue";
 import TextInput from "../generic-components/Form/TextInput.vue";
+import StarRating from 'vue-star-rating'
 export default {
   components: {
     Card,
     Button,
     Form,
     FormRow,
-    TextInput
+    TextInput,
+    StarRating
   },
   props: {
     accomodation: {}
