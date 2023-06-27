@@ -59,7 +59,7 @@ methods: {
     },
 
     viewMore(){
-        this.$router.push({name:'AccomodationPage', path: '/accomodation/'+ this.fetchedAccomodation.accomodation.id, params: { accomodation: this.fetchedAccomodation }});
+        this.$router.push({path: `/accomodation/${this.fetchedAccomodation.accomodation.id}`, params: { accomodation: this.fetchedAccomodation, id: this.fetchedAccomodation.accomodation.id }, name: "AccomodationPage"});
     }
 },
 

@@ -11,12 +11,12 @@
                         :isValid="validateStringWithNumbersOnly(searchAccomodation.numberOfGuests)" :showErrorMessage="showErrorMessage" errorMessage="Can contain only numbers."/>
                     </div>
                     <div class="col-3">
-                        <DateTimePicker v-model="searchAccomodation.startDate" :isValid="!!searchAccomodation.startDate" 
-                        :showErrorMessage="showErrorMessage" label="Start date" errorMessage="You have to select start date."
+                        <DateTimePicker v-model="searchAccomodation.startDate" :isValid="validStartDate()" 
+                        :showErrorMessage="showErrorMessage" label="Start date" errorMessage="You have to select valid start date."
                         type="date" id="startValidDate"/>
                     </div>
                     <div class="col-3">
-                        <DateTimePicker  v-model="searchAccomodation.endDate" :isValid="!!searchAccomodation.endDate"  :showErrorMessage="showErrorMessage" label="End date" errorMessage="You have to select end date."
+                        <DateTimePicker  v-model="searchAccomodation.endDate" :isValid="validEndDate()"  :showErrorMessage="showErrorMessage" label="End date" errorMessage="You have to select valid end date."
                         type="date" id="endValidDate"/>
                     </div>
                 </form-row>
@@ -99,6 +99,17 @@ methods: {
     validateStringWithNumbersOnly(number) {
       return validateStringWithNumbersOnly(number);
     },
+
+    validStartDate() {
+      return !!this.searchAccomodation.startDate && new Date(this.searchAccomodation.startDate) > new Date().setHours(23,59,59,59)
+    },
+
+    validEndDate() {
+      let nextDay = new Date().setDate(new Date().getDate() + 1)
+      let date = new Date(nextDay).setHours(23,59,59,59)
+      console.log(new Date(date).toISOString())
+      return !!this.searchAccomodation.endDate && new Date(this.searchAccomodation.endDate) > new Date(date)
+    }
 
   },
 
