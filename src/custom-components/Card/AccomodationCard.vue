@@ -49,7 +49,6 @@ export default {
 
     watch: {
         fetchedImage(newImage) {
-            console.log("cao")
             this.image = newImage.image;
             this.fetchedAccomodation.displayImage = newImage.image;
         },
@@ -81,8 +80,6 @@ export default {
     },
 
     mounted() {
-        console.log(this.fetchedAccomodation)
-        console.log("moun")
         this.fetchedAccomodationData = this.fetchedAccomodation;
         this.fetchImage(this.fetchedAccomodationData.accomodation.images[0])
         this.fetchAverageAccomodation(this.fetchedAccomodationData.accomodation.id)
