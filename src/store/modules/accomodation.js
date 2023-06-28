@@ -74,7 +74,7 @@ const actions = {
         axios
         .get(`/accomodation/image/` + imageName)
         .then((response) => {
-          context.commit("setImage", response.data);
+          context.commit("setImage", {rnd: Math.random(), image: response.data});
           context.commit("setResult", { label: "image", ok: true, message: "" });
         })
         .catch((error) => {

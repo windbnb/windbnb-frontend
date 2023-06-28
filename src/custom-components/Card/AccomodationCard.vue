@@ -3,6 +3,7 @@
         <div class="card card-chart">
             <div :v-if="image">
                 <img :src="image" id="image" style="height: 200px;max-width: 100%;"/>
+
             </div>
             <div class="card-body" :v-if="fetchedAccomodation">
                 <!-- <h4 class="card-title">{{fetchedAccomodationData}}</h4> -->
@@ -48,8 +49,9 @@ export default {
 
     watch: {
         fetchedImage(newImage) {
-            this.image = "data:image/jpg;base64," + newImage;
-            this.fetchedAccomodation.displayImage = "data:image/jpg;base64," + newImage;
+            console.log("cao")
+            this.image = newImage.image;
+            this.fetchedAccomodation.displayImage = newImage.image;
         },
 
         averageAccomodation(newAverageAccomodation){
@@ -80,11 +82,11 @@ export default {
 
     mounted() {
         console.log(this.fetchedAccomodation)
+        console.log("moun")
         this.fetchedAccomodationData = this.fetchedAccomodation;
         this.fetchImage(this.fetchedAccomodationData.accomodation.images[0])
         this.fetchAverageAccomodation(this.fetchedAccomodationData.accomodation.id)
-    },
-
+    }
 }
 
 </script>

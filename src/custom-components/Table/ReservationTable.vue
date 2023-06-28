@@ -56,7 +56,7 @@ import DropDownMenu from '../../generic-components/DropdownMenu/DropdownMenu.vue
 import DropDownItem from '../../generic-components/DropdownMenu/DropdownItem.vue';
 import ModalOpener from "../../generic-components/Modal/ModalOpener.vue"
 import Modal from "../../generic-components/Modal/Modal.vue"
-import Rate from "../../generic-components/Rate/Rate.vue"
+// import Rate from "../../generic-components/Rate/Rate.vue"
 import StarRating from 'vue-star-rating'
 import toastr from 'toastr'
 import { mapActions, mapGetters } from 'vuex'
@@ -83,7 +83,7 @@ export default {
     DropDownItem,
     ModalOpener,
     Modal,
-    Rate,
+    // Rate,
     StarRating
   },
 
