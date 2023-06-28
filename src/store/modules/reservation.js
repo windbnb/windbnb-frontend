@@ -73,6 +73,16 @@ const actions = {
       .catch(error => {
         context.commit("setResult", {label: "fetchReservations", ok: false, message: error.response.data.errorMessage })
       })
+    },
+    createReservationRequest: (context, reservationRequest) => {
+      axios.post(`/reservationRequest/new`, reservationRequest)
+      .then(response => {
+        context.commit("setReservations", response.data);
+        context.commit("setResult", {label: "createReservations", ok: true, message: "You have successfully created reservation request." })
+      })
+      .catch(error => {
+        context.commit("setResult", {label: "createReservations", ok: false, message: error.response.data.errorMessage })
+      })
     }
 };
   
