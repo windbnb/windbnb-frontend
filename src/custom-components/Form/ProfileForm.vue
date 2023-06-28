@@ -29,22 +29,20 @@
         </form-row>
 
         <form-row v-if="this.role.includes('GUEST')">
-            <div class="col-6">
             <MultiSelectOptionInput
               label="Select notification settings"
               :options="guestNotifications"
               v-model="addedGuestNotifications"
+              class="col-6"
             />
-            </div> 
         </form-row>
          <form-row v-if="this.role.includes('HOST')">
-            <div class="col-6">
             <MultiSelectOptionInput
               label="Select notification settings"
               :options="hostNotifications"
-              v-model="addedHostNotifications"
+              v-model="checkedHostNotifications"
+              class="col-6"
             />
-            </div> 
         </form-row>
 
     <form-row>
@@ -74,8 +72,10 @@ import toastr from 'toastr'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
-    props: {
-        user: null
+  props: {
+        user: {
+            type: Object
+        }
     },
   components: {
     Form,
@@ -114,7 +114,7 @@ data: function () {
           value: 0,
         },
       ],
-      addedHostNotifications: [],
+      checkedHostNotifications: [],
       addedGuestNotifications: [],
     };
 },
@@ -144,9 +144,18 @@ watch: {
       }
     },
 
-    user(newUser){
+    user(newUser) {
       this.user = newUser;
+      this.handleMultiselect()
     },
+
+    checkedHostNotifications(notifications) {
+      this.checkedHostNotifications = notifications;
+    },
+
+    addedGuestNotifications(notifications) {
+      this.addedGuestNotifications = notifications;
+    }
 },
 
 methods: {
@@ -158,7 +167,8 @@ methods: {
     onSubmit(e) {
       e.preventDefault();
       if(this.role.includes('HOST')){
-        this.addedHostNotifications.forEach((option) => {
+        this.checkedHostNotifications.forEach((option) => {
+          console.log(option)
           if (option === 0) {
             this.user.reservationCanceledNotification = true;
           }
@@ -203,10 +213,39 @@ methods: {
       this.deleteUser(this.user.id);
     },
 
+    handleMultiselect() {
+      const list = []
+      if (this.role.includes("HOST")) {
+        if (this.user.addedHostNotifications) {
+          list.push(0)
+        } 
+        if (this.user.reservationRequestNotification) {
+          list.push(1)
+        } 
+        if (this.user.accomodationReviewNotification) {
+          list.push(2)
+        } 
+        if (this.user.selfReviewNotification) {
+          list.push(3)
+        } 
+        this.checkedHostNotifications = list;
+      } else {
+        if (this.user.reservationStatusChangedNotification) {
+          list.push(0)
+        }
+        this.addedGuestNotifications = list
+      }
+      console.log(this.addedGuestNotifications)
+      console.log(this.checkedHostNotifications)
+    }
+
   },
 
   mounted() {
     this.role = getRoleFromToken();
+    if (this.user) {
+      this.handleMultiselect()
+    }
   },
 };
 </script>
