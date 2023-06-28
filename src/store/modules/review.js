@@ -3,13 +3,15 @@ import axios from 'axios'
 const state = {
     result: null,
     review: null,
-    averageAccomodation: null
+    averageAccomodation: null,
+    reviewForAccomodation: null
 };
   
 const getters = {
     getResult: (state) => state.result,
     getReview: (state) => state.review,
-    getAverageAccomodation: (state) => state.averageAccomodation
+    getAverageAccomodation: (state) => state.averageAccomodation,
+    getReviewForAccomodation: (state) => state.getReviewForAccomodation
 };
 
  
@@ -43,6 +45,16 @@ const actions = {
           context.commit("setResult", {label: "create", ok: false, message: error.response.data.errorMessage })
         })
       },
+
+    getReviewGuestAccomodation: (context, obj) => {
+      axios.get(`/review/accomodation-rating/accomodation/`+  obj.guestId + `/`+ obj.accomodationId)
+        .then(response => {
+          context.commit("setReviewForAccomodation", response.data);
+        })
+        .catch(error => {
+          context.commit("setResult", {label: "create", ok: false, message: error.response.data.errorMessage })
+        })
+      },
 };
   
 const mutations = {
@@ -55,8 +67,12 @@ const mutations = {
     },
 
     setAverageAccomodation: (state, average) => {
-        state.averageAccomodation = average;
-      }
+      state.averageAccomodation = average;
+    },
+
+    setReviewForAccomodation: (state, reviewForAccomodation) => {
+      state.reviewForAccomodation = reviewForAccomodation;
+    }
 };
   
 export default {
