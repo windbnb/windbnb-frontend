@@ -6,9 +6,8 @@
 
             </div>
             <div class="card-body" :v-if="fetchedAccomodation">
-                <!-- <h4 class="card-title">{{fetchedAccomodationData}}</h4> -->
+                <h4 class="card-title">{{fetchedAccomodation.accomodation.name}}</h4>
                 <p class="card-title">{{fetchedAccomodation.accomodation.address}}</p>
-               <p class="card-title">{{fetchedAccomodation.average}}</p>
                 <StarRating :rating="averageRate" :read-only=true></StarRating>
             </div>
             <div class="card-footer">
@@ -54,11 +53,8 @@ export default {
         },
 
         averageAccomodation(newAverageAccomodation){
-            console.log(newAverageAccomodation)
             this.fetchedAccomodation.average = newAverageAccomodation.AverageRaiting;
             this.averageRate = newAverageAccomodation.AverageRaiting;
-            // this.$set(this, "fetchedAccomodationData", newAverageAccomodation)
-            // this.$set(this.fetchedAccomodationData, "average", newAverageAccomodation.AverageRaiting)
         }
 
     },

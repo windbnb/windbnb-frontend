@@ -113,6 +113,13 @@ methods: {
 
   },
 
-  mounted() {},
+  mounted() {
+    this.searchAccomodations({
+        numberOfGuests: 4,
+        address: " ",
+        startDate: new Date(),
+        endDate: new Date(new Date().setDate(new Date().getDate() + 5)),
+      },);
+  },
 };
 </script>

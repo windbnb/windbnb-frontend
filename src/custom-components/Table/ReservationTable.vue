@@ -56,7 +56,6 @@ import DropDownMenu from '../../generic-components/DropdownMenu/DropdownMenu.vue
 import DropDownItem from '../../generic-components/DropdownMenu/DropdownItem.vue';
 import ModalOpener from "../../generic-components/Modal/ModalOpener.vue"
 import Modal from "../../generic-components/Modal/Modal.vue"
-// import Rate from "../../generic-components/Rate/Rate.vue"
 import StarRating from 'vue-star-rating'
 import toastr from 'toastr'
 import { mapActions, mapGetters } from 'vuex'
@@ -83,7 +82,6 @@ export default {
     DropDownItem,
     ModalOpener,
     Modal,
-    // Rate,
     StarRating
   },
 
@@ -99,9 +97,11 @@ export default {
 
     accomodation(newAccomodation){
       this.hostId = newAccomodation.userID;
-      console.log(this.hostId)
-    }
+    },
 
+    selected(newSelected){
+       this.fetchAccomodation(newSelected.accommodationID);
+    },
 
   },
 
@@ -120,6 +120,7 @@ export default {
         createHostReview: 'review/createHostReview',
         fetchAccomodation: 'accomodation/fetchAccomodation'
         }),
+
     deleteReservation(reservation) {
       this.deleteReservationRequest(reservation.id)
       this.reservations = this.reservations.filter(r => r.id != reservation.id)
@@ -134,14 +135,13 @@ export default {
     },
 
     rateHost(){
-      this.fetchAccomodation(this.selected.accommodationID);
-      console.log(this.hostId)
-      //  var reviewDTO = {
-      //   "GuestId":        getIdFromToken(),
-	    //   "HostId": this.selected.accommodationID,
-	    //   "Raiting":      this.ratingAccomodation
-      // }
-      // this.createHostReview(reviewDTO);
+       var reviewDTO = {
+        "GuestId":        getIdFromToken(),
+	      "HostId": this.hostId,
+	      "Raiting":      this.ratingHost
+      }
+      this.createHostReview(reviewDTO);
+       document.getElementById('displayRateHostModal').click();
     },
 
     rateAccomodation(){
@@ -151,6 +151,7 @@ export default {
 	      "Raiting":      this.ratingAccomodation
       }
       this.createAccomodationReview(reviewDTO);
+      document.getElementById('displayRateAccomodationModal').click();
     },
 
     formatDateTime(date) {

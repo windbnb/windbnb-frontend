@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Button class="pull-right" @click="addNewPrice">Add new price</Button>
     <Table v-if="prices !== null ">
       <TableHead :columnNames="['Start date', 'End date', 'Price type','Value', ' ']" ></TableHead>
       <TableBody>
@@ -30,6 +31,7 @@ import DropDownItem from '../../generic-components/DropdownMenu/DropdownItem.vue
 import DropDownMenu from '../../generic-components/DropdownMenu/DropdownMenu.vue'
 import Modal from '../../generic-components/Modal/Modal.vue'
 import ModalOpener from '../../generic-components/Modal/ModalOpener.vue'
+import Button from "../../generic-components/Form/Button.vue"
 import moment from 'moment'
 import {mapActions, mapGetters} from 'vuex'
 import toastr from 'toastr'
@@ -51,7 +53,8 @@ export default {
     DropDownItem,
     DropDownMenu,
     Modal,
-    ModalOpener
+    ModalOpener,
+    Button
   },
 
   computed: {
@@ -86,7 +89,10 @@ export default {
 
     onDelete(id){
       this.deletePrice(id);
-    }
+    },
+     addNewPrice(){
+        this.$router.push("/accomodation-price/" + this.accomodationId)
+    },
   },
   mounted() {
      
