@@ -11,6 +11,9 @@
                         <p class="card-title">Price: {{this.accomodation.price}} RSD</p>
                         <p class="card-title">{{facilities()}}</p>
                         <StarRating  v-model="this.accomodation.average" :read-only=true  :star-size="15"></StarRating>
+                        <div class="stats">
+                    
+                        </div>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
@@ -18,7 +21,9 @@
                         </div>
                         <Button :v-if="role.includes('GUEST')" class="pull-right" @click="clickReserve">Reserve</Button>
                     </div>
-
+                    <ul :v-if="done" v-for="img in displayImages" :key="img">
+                        <li><img  :src="img" id="image" style="height: 200px;max-width: 100%;"/></li>
+                    </ul>
                     <CreateReservationRequestModal :accomodation="this.accomodation" />
                 </card>
             </div>
@@ -36,6 +41,7 @@ import TextInput from "../generic-components/Form/TextInput.vue";
 import StarRating from 'vue-star-rating'
 import CreateReservationRequestModal from "../custom-components/Modal/CreateReservationRequestModal.vue"
 import { getRoleFromToken } from '../utils/token';
+import { mapGetters, mapActions } from 'vuex'
 export default {
   components: {
     Card,
@@ -52,10 +58,30 @@ export default {
   name: "AccomodationPage",
   data: function() {
         return {
-            role: getRoleFromToken()
+            role: getRoleFromToken(),
+            images:[],
+            displayImages: [],
+            done: false
         }
   },
+ computed: {
+    ...mapGetters({
+            fetchedImage: "accomodation/getImage"
+        }),
+},
+ watch: {
+    fetchedImage(newImage) {
+        this.image = newImage.image;
+        this.displayImages.push(newImage.image);
+        if(this.displayImages.length ===this.images ){
+            this.done = true;
+        }
+    },
+},
   methods: {
+      ...mapActions({
+        fetchImage: "accomodation/fetchImage"
+    }),
     formatDate(date) {
       return moment(date).format("DD.MM.YYYY.");
     },
@@ -92,7 +118,22 @@ export default {
 
 
   mounted() {
-    console.log(this.role)
-},
+    if(this.accomodation !== null){
+        this.images = this.accomodation.accomodation.images
+        for(var i =0; i<this.images.length; i++){
+            this.fetchImage(this.images[i])
+        }
+    }
+    },
 };
 </script>
+<style scoped>
+    ul {
+        white-space: nowrap;
+    }
+
+    ul, li {
+        list-style: none;
+        display: inline;
+    }
+</style>

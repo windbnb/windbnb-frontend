@@ -8,9 +8,6 @@
         <sidebar-item v-if="role.includes('HOST')" name="Active reservations" icon="list" to="/reservations/host-active"></sidebar-item>
         <sidebar-item v-if="role.includes('HOST')" name="Submitted reservations" icon="list" to="/reservations/host-submitted"></sidebar-item>
         <sidebar-item v-if="role.includes('HOST')" name="All reservations" icon="list" to="/reservations/host-all"></sidebar-item>
-
-       <sidebar-item  name="Search accomodations" icon="search" to="/search"></sidebar-item>
-
         <sidebar-item v-if="role.includes('GUEST')" name="Reservations" icon="list" to="/reservations/guest"></sidebar-item>
         <sidebar-item v-if="role.includes('GUEST')" name="Active reservations" icon="list" to="/reservations/guest-active"></sidebar-item>
         
