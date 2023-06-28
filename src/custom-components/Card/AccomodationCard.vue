@@ -63,6 +63,7 @@ export default {
 
     },
 
+
     methods: {
             ...mapActions({
             fetchImage: "accomodation/fetchImage",
@@ -74,10 +75,11 @@ export default {
             document.getElementById('image').src = this.image;
         },
 
-        viewMore(){
-            this.$router.push({name:'AccomodationPage', path: '/accomodation/'+ this.fetchedAccomodationData.accomodation.id, params: { accomodation: this.fetchedAccomodation }});
-        }
-    },
+    viewMore(){
+        this.$router.push({path: `/accomodation/${this.fetchedAccomodation.accomodation.id}`, params: { accomodation: this.fetchedAccomodation, id: this.fetchedAccomodation.accomodation.id }, name: "AccomodationPage"});
+    }
+},
+
 
     mounted() {
         this.fetchedAccomodationData = this.fetchedAccomodation;

@@ -16,8 +16,10 @@
                         <div class="stats">
                             <div class="card-title"><b>Total price: {{this.accomodation.totalPrice}} RSD</b></div>
                         </div>
-                        <Button class="pull-right">Reserve</Button>
+                        <Button :v-if="role.includes('GUEST')" class="pull-right" @click="clickReserve">Reserve</Button>
                     </div>
+
+                    <CreateReservationRequestModal :accomodation="this.accomodation" />
                 </card>
             </div>
         </div>
@@ -32,6 +34,8 @@ import Form from "../generic-components/Form/Form.vue"
 import FormRow from "../generic-components/Form/FormRow.vue";
 import TextInput from "../generic-components/Form/TextInput.vue";
 import StarRating from 'vue-star-rating'
+import CreateReservationRequestModal from "../custom-components/Modal/CreateReservationRequestModal.vue"
+import { getRoleFromToken } from '../utils/token';
 export default {
   components: {
     Card,
@@ -39,13 +43,18 @@ export default {
     Form,
     FormRow,
     TextInput,
-    StarRating
+    StarRating,
+    CreateReservationRequestModal
   },
   props: {
     accomodation: {}
   },
   name: "AccomodationPage",
-
+  data: function() {
+        return {
+            role: getRoleFromToken()
+        }
+  },
   methods: {
     formatDate(date) {
       return moment(date).format("DD.MM.YYYY.");
@@ -74,11 +83,16 @@ export default {
             additional += " FREE PARKING"
         }
         return additional
+    },
+
+    clickReserve() {
+        document.getElementById('displayCreateReservationRequestModalOpener').click();
     }
   },
 
 
   mounted() {
+    console.log(this.role)
 },
 };
 </script>
