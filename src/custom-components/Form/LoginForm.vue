@@ -63,7 +63,7 @@ export default {
             if(label !== 'authenticate') 
                 return;
             if(ok) {
-                this.$router.push('/');
+                this.$router.push('/search');
             } else {
                 toastr.error(message)
             }

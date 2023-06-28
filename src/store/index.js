@@ -4,6 +4,7 @@ import authentication from "./modules/authentication";
 import user from "./modules/user";
 import accomodation from "./modules/accomodation";
 import reservation from "./modules/reservation"
+import review from "./modules/review"
 
 Vue.use(Vuex);
 
@@ -12,6 +13,7 @@ export default new Vuex.Store({
     authentication,
     user,
     accomodation,
-    reservation
+    reservation,
+    review
   },
 });
