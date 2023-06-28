@@ -28,6 +28,25 @@
             </div>
         </form-row>
 
+        <form-row v-if="this.role.includes('GUEST')">
+            <div class="col-6">
+            <MultiSelectOptionInput
+              label="Select notification settings"
+              :options="guestNotifications"
+              v-model="addedGuestNotifications"
+            />
+            </div> 
+        </form-row>
+         <form-row v-if="this.role.includes('HOST')">
+            <div class="col-6">
+            <MultiSelectOptionInput
+              label="Select notification settings"
+              :options="hostNotifications"
+              v-model="addedHostNotifications"
+            />
+            </div> 
+        </form-row>
+
     <form-row>
          <div class="col-6">
             <Button @click="showErrorMessage = true" type="submit">Change</Button>
@@ -47,14 +66,16 @@ import Form from "../../generic-components/Form/Form.vue";
 import FormRow from "../../generic-components/Form/FormRow.vue";
 import TextInput from "../../generic-components/Form/TextInput.vue";
 import SelectOptionInput from "../../generic-components/Form/SelectOptionInput.vue";
-import { validateEmail, validatePassword, validateStringWithLettersOnly, 
+import MultiSelectOptionInput from "../../generic-components/Form/MultiSelectOptionInput.vue"
+import { validateEmail, validateStringWithLettersOnly, 
 validateStringWithNumbersOnly, validateStringWithLettersAndNumbersOnly } from '../../utils/validation'
+import {getRoleFromToken} from '../../utils/token'
 import toastr from 'toastr'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
     props: {
-        user: null,
+        user: null
     },
   components: {
     Form,
@@ -62,11 +83,39 @@ export default {
     TextInput,
     Button,
     SelectOptionInput,
+    MultiSelectOptionInput
   },
 
 data: function () {
     return {
-      showErrorMessage: false
+      role: '',
+      showErrorMessage: false,
+      hostNotifications: [
+        {
+          label: "Reservation canceled notification",
+          value: 0,
+        },
+        {
+          label: "Reservation request notification",
+          value: 1,
+        },
+        {
+          label: "Accomodation review notification",
+          value: 2,
+        },
+        {
+          label: "Self review notification",
+          value: 3,
+        }
+      ],
+      guestNotifications: [
+          {
+          label: "Reservation status changed notification",
+          value: 0,
+        },
+      ],
+      addedHostNotifications: [],
+      addedGuestNotifications: [],
     };
 },
 
@@ -97,7 +146,7 @@ watch: {
 
     user(newUser){
       this.user = newUser;
-    }
+    },
 },
 
 methods: {
@@ -108,7 +157,30 @@ methods: {
 
     onSubmit(e) {
       e.preventDefault();
-      this.updateUser(this.user);
+      if(this.role.includes('HOST')){
+        this.addedHostNotifications.forEach((option) => {
+          if (option === 0) {
+            this.user.reservationCanceledNotification = true;
+          }
+          if (option === 1) {
+            this.user.reservationRequestNotification = true;
+          }
+          if (option === 2) {
+           this.user.accomodationReviewNotification = true;
+          }
+          if (option === 3) {
+           this.user.selfReviewNotification = true;
+          }
+        });
+      }else{
+         this.addedGuestNotifications.forEach((option) => {
+          if (option === 0) {
+            this.user.reservationStatusChangedNotification = true;
+          }
+        });
+      }
+
+       this.updateUser(this.user);
     },
 
     validateEmail(email) {
@@ -129,10 +201,12 @@ methods: {
 
     handleDeleteAccount(){
       this.deleteUser(this.user.id);
-    }
+    },
 
   },
 
-  mounted() {},
+  mounted() {
+    this.role = getRoleFromToken();
+  },
 };
 </script>
